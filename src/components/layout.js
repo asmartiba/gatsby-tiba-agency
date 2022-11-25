@@ -8,9 +8,6 @@
 import * as React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 
-import Header from "./header"
-import "./layout.css"
-
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -23,8 +20,31 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <>
+        // ...
+    {/* <nav className={nav}>
+    <header className={siteTitle}>
+    <h1>{data.site.siteMetadata.title}</h1>
+    </header>
+    <ul className={navLinks}>
+    <li></li>
+    <li className={navLinkItem}>
+    <Link className={navLinkText} to="/">
+      Home
+    </Link>
+    </li>
+    <li className={navLinkItem}>
+    <Link className={navLinkText} to="/about">
+      About
+    </Link>
+    </li>
+    <li className={navLinkItem}>
+    <Link className={navLinkText} to="/artists">
+      Artists
+    </Link>
+    </li>
+    </ul>
+  </nav> */}
       <div
         style={{
           margin: `0 auto`,
