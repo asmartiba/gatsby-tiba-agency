@@ -1,25 +1,27 @@
-// Stap 1: Importeer React
-import * as React from 'react';
-import { Link } from 'gatsby';
-import { StaticImage } from 'gatsby-plugin-image';
-// Stap 2: definieer je component
+import * as React from "react"
+import { Link } from "gatsby"
+import {Nav} from "../components/Nav";
+import Layout from "../components/Layout"
+import Footer from "../components/Footer"
+import Seo from "../components/seo"
+import * as styles from "../components/index.module.css"
+import { main, subtitle, title, background } from '../components/mycomponents.module.css'
+import { StaticImage } from 'gatsby-plugin-image'
+
+
 const IndexPage = () => {
   return (
-    <main>
+    <main className={main}>
+      <Layout title={background}>
       <title>Home Page</title>
-      <h1>Tiba's Art</h1>
-      <Link to="/about">About page</Link>
-      <Link to="/gallery">Gallery page</Link>
-      <br></br>
-      <StaticImage
-        alt="randomized unsplash image!"
-        src="https://i0.wp.com/artinmake.com/wp-content/uploads/2022/07/self-portrait-scaled.jpg?resize=1547%2C2048&ssl=1"
-        width={400}
-      />
-      <p></p>
+      <h1 className={title}>Welcome to my world</h1>
+      {/* <StaticImage alt="example" src="../" width={100}/> */}
+      
+      <h3 className={subtitle}>Take a look around</h3>
+      </Layout>
+      <Footer copy="Asmar Tiba" year={2023}/>
     </main>
   )
 }
-
 
 export default IndexPage

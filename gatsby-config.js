@@ -9,8 +9,8 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `Tiba Visions`,
+    description: `My visual dream on different mediums.`,
     author: `@asmartiba`,
     siteUrl: `https://gatsbystarterdefaultsource.gatsbyjs.io/`,
     
