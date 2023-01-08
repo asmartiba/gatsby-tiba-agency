@@ -8,9 +8,10 @@ import {artShow, main, toCentre, artworkDetails, artworkInfo, button} from '../.
 
 const ArtworkPage = ({data: {wpArtwork: {artworkMeta: artwork, mediums: {nodes: mediums},},},}) => {
     const image = getImage(artwork.image.localFile);
+  
     return (
       <main className={main}>
-        <Layout pageTitle="Self-Portrait">
+        <Layout>
           <div className={toCentre}>
             <GatsbyImage image={image} alt={artwork.image.altText} className={artShow}/>
             <div className={artworkDetails}>
@@ -20,7 +21,6 @@ const ArtworkPage = ({data: {wpArtwork: {artworkMeta: artwork, mediums: {nodes: 
             <p>Material:</p>
             <p>Size:</p>
             <p>Description:</p>
-            <p>Price: </p>
             </div>
             <div className={artworkInfo}>
               <h2>{artwork.title}</h2>
@@ -29,7 +29,7 @@ const ArtworkPage = ({data: {wpArtwork: {artworkMeta: artwork, mediums: {nodes: 
               <p>{artwork.material}</p>
               <p>{artwork.resolution}</p>
               <p>{artwork.description}</p>
-              <p>€{artwork.price}</p>
+              <p>{artwork.price}</p>
             </div>
           </div>
           <div className={toCentre}>
@@ -44,32 +44,40 @@ const ArtworkPage = ({data: {wpArtwork: {artworkMeta: artwork, mediums: {nodes: 
 }
 
 export const query = graphql`query ($id: String) {
-    wpArtwork(id: {eq:$id}) {
-      artworkMeta {
-        title
-        style
-        year
-        resolution
-        description
-        material
-        price
-        image {
-            localFile {
-              childImageSharp {
-                gatsbyImageData(placeholder:BLURRED)
+  wpArtwork(id: {eq: $id}) {
+    artworkMeta {
+      title
+      style
+      year
+      resolution
+      description
+      material
+      price
+      image {
+        localFile {
+          childImageSharp {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+        }
+        altText
+      }
+    }
+    mediums {
+      nodes {
+        artworks {
+          nodes {
+            uri
+            mediums {
+              nodes {
+                uri
               }
             }
-            altText
           }
-      }
-      mediums {
-        nodes {
-          id
-          description
         }
       }
     }
-  }`
+  }
+}`
 
 
 export default ArtworkPage;

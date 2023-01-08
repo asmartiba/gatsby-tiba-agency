@@ -6,70 +6,73 @@ import Footer from "../components/Footer"
 import Artwork from "../components/artwork"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
-import { main, subtitle, title, background,artwork } from '../components/mycomponents.module.css'
+import { main, subtitle, title, background,artwork, artworks, artShow, material, indexFlex} from '../components/mycomponents.module.css'
 import { StaticImage, GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 
 
 const IndexPage = ({
   data: {
-    wpPage: {homeFields},
+    allWpArtwork: {edges},
+    wpPage: {artworksFields},
   },
 }) => {
-  console.log(homeFields)
+    let i = 2;
+    return (
+        <main className={main}>
+        <Layout title={background}>
+        <h2 className={title}>Welcome in my world</h2>
 
-  const image = getImage(homeFields.picture.localFile);
-
-  return (
-    <main className={main}>
-      <Layout title={background}>
-      <section>
-      <h1 className={title}>Welcome to my world</h1>
-      <GatsbyImage image={image} className={artwork}/>
-      </section>
-      <section>
-        <h2>Featured Artworks</h2>
-
-      </section>
-      </Layout>
-      <Footer copy="Asmar Tiba" year={2023}/>
-    </main>
-  )
+        <h3 className={subtitle}>Featured artworks:</h3>
+        {edges.map((item, index) => {
+          const artwork = item.node.artworkMeta;
+          const slug = item.node.slug;
+          const image = getImage(item.node.artworkMeta.image.localFile);
+          if (index < 4) {
+          return <div className={indexFlex}>
+          <div className={artworks}><Link to={`/artworks/${slug}`}>
+            <GatsbyImage image={image} className={artShow}/>
+            <p className={subtitle} key={item.node.id}>{artwork.title} ({artwork.year})</p>
+          </Link></div></div>}
+        })}
+        </Layout>
+        <Footer copy="Asmar Tiba" year={2023}/>
+        </main>
+    )
 }
 
-export const query = graphql`query homeQuery {
-  wpPage(slug: {eq:"home"}) {
-    homeFields {
-      artworks {
-        ...on WpArtwork {
-          id
-          slug
-          artworkMeta {
-            title
-            year
-            image {
-              altText
-              localFile {
-                childImageSharp {
-                  gatsbyImageData(placeholder:BLURRED, transformOptions:{grayscale:true})
-                }
-              }
+export const query = graphql`
+  query {
+    wpPage(slug: {eq: "artworks"}) 
+    {
+      artworksFields {
+        title
+        picture {
+          localFile {
+            childImageSharp {
+              gatsbyImageData(quality: 100, placeholder:BLURRED, layout:FULL_WIDTH)
             }
           }
         }
       }
-      calltoaction {
-        title
-        url
-      }
-      title
-      picture {
-        altText
-        localFile {
-          childImageSharp {
-            gatsbyImageData(placeholder:BLURRED)
+    }
+    allWpArtwork {
+      edges {
+        node {
+			  	artworkMeta {
+            title
+            year
+            material
+            image {
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(placeholder:BLURRED)
+                }
+              }
+            }
           }
-        }
+        slug
+        id
       }
     }
   }
