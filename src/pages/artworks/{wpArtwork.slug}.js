@@ -3,9 +3,10 @@ import Layout from '../../components/Layout'
 import {graphql, Link} from 'gatsby'
 import {GatsbyImage, getImage} from 'gatsby-plugin-image'
 import Footer from '../../components/Footer'
+import Artwork from '../../components/artwork'
 import {artShow, main, toCentre, artworkDetails, artworkInfo, button} from '../../components/mycomponents.module.css'
 
-const ArtworkPage = ({data: {wpArtwork: {artworkMeta: artwork}}}) => {
+const ArtworkPage = ({data: {wpArtwork: {artworkMeta: artwork, mediums: {nodes: mediums},},},}) => {
     const image = getImage(artwork.image.localFile);
     return (
       <main className={main}>
@@ -61,7 +62,14 @@ export const query = graphql`query ($id: String) {
             altText
           }
       }
+      mediums {
+        nodes {
+          id
+          description
+        }
+      }
     }
   }`
+
 
 export default ArtworkPage;

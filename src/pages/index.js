@@ -27,7 +27,6 @@ const IndexPage = ({
       <h1 className={title}>Welcome to my world</h1>
       <GatsbyImage image={image} className={artwork}/>
       </section>
-
       <section>
         <h2>Featured Artworks</h2>
 
