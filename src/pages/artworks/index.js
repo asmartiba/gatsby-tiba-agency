@@ -5,28 +5,28 @@ import {StaticImage} from 'gatsby-plugin-image';
 import {Nav} from "../../components/Nav";
 import Footer from "../../components/Footer"
 import ArtworkList from "../../components/ArtworkList"
-import { main, image, flexContainer, title, background } from '../../components/mycomponents.module.css'
+import { main, image, flexContainer, title, background, artwork, subtitle } from '../../components/mycomponents.module.css'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import {Artwork} from "../../components/artwork"
 
 
-const Artworks = ({
+const ArtworksPage = ({
   data: {
     allWpArtwork: {edges},
     wpPage: {artworksFields},
   },
 }) => {
-  console.log(artworksFields);
-  console.log(`testing is best`)
-  
     return (
         <main className={main}>
         <Layout title={background}>
         {edges.map((item) => {
           const artwork = item.node.artworkMeta;
           const slug = item.node.slug;
-          return <Link to={`/artworks/${slug}`}>
-            <p key={item.node.id}>{artwork.title}</p>
-          </Link>
+          const image = getImage(item.node.artworkMeta.image.localFile);
+          return <div className={flexContainer}><Link to={`/artworks/${slug}`}>
+            <GatsbyImage image={image} style={{height: 300, width: 300}}/>
+            <p className={subtitle} key={item.node.id}>{artwork.title} - {artwork.year}</p>
+          </Link></div>
         })}
         </Layout>
         <Footer copy="Asmar Tiba" year={2023}/>
@@ -58,7 +58,7 @@ export const query = graphql`
             image {
               localFile {
                 childImageSharp {
-                  gatsbyImageData(placeholder:BLURRED, transformOptions: {grayscale:true})
+                  gatsbyImageData(placeholder:BLURRED)
                 }
               }
             }
@@ -71,4 +71,4 @@ export const query = graphql`
 }`
 
 
-export default Artworks;
+export default ArtworksPage;

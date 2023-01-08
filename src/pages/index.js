@@ -3,7 +3,7 @@ import { graphql, Link } from "gatsby"
 import {Nav} from "../components/Nav";
 import Layout from "../components/Layout"
 import Footer from "../components/Footer"
-import Artwork from "../components/Artwork"
+import Artwork from "../components/artwork"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
 import { main, subtitle, title, background,artwork } from '../components/mycomponents.module.css'
@@ -30,12 +30,7 @@ const IndexPage = ({
 
       <section>
         <h2>Featured Artworks</h2>
-        <article>
-          {homeFields.artworks.map(artwork => {
-            return <Artwork slug={`artworks/${artwork.slug}`} key={artwork.id} artwork={artwork}/>
-          })}
-        </article>
-        <h2 className={subtitle}>Featured Artworks</h2>
+
       </section>
       </Layout>
       <Footer copy="Asmar Tiba" year={2023}/>

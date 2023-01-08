@@ -14,7 +14,7 @@
 }
 
 .main {
-    height: 100vh;
+    height: 125vh;
     width: 100vw;
     background-color: #2c2c2c   ;
     overflow-y: scroll;
@@ -43,4 +43,38 @@
 .artwork {
     height: 400px;
     width: 400px;
+}
+
+.artShow {
+    width: 400px;
+    height: auto;
+}
+
+.toCentre {
+    display: flex;
+    justify-content: center;
+}
+
+.artworkDetails {
+    margin-left: 100px;
+    margin-right: 50px;
+    color: rgb(228, 199, 140);
+}
+
+.artworkInfo {
+    color: rgb(162, 182, 196);
+    font-style: italic;
+    font-weight: 200;
+}
+
+.button {
+    width: 150px;
+    height: 50px;
+    border: 2px solid rgb(105, 40, 39);
+    background-color: #2c2c2c;
+    color: white;
+    font-size: 1.2em;
+    margin-top: 50px;
+    border-radius: 10px;
+    text-align: center;
 }
