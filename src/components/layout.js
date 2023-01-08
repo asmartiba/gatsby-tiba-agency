@@ -2,8 +2,9 @@ import * as React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import { container, nav, navLinks, navLinkItem, navLinkText } from './layout.module.css'
 import { main, title, mainTitle, background } from '../components/mycomponents.module.css'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 
-const Layout = ({ pageTitle, children }) => {
+const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`query {
     site {
       siteMetadata {
@@ -14,7 +15,7 @@ const Layout = ({ pageTitle, children }) => {
 
   return (
     <div className={container}>
-      <title>{pageTitle} | {data.site.siteMetadata.title}</title>
+      <title>{data.site.siteMetadata.title}</title>
       <nav className={nav}>
       <h1 className={mainTitle}>{data.site.siteMetadata.title}</h1>
         <ul className={navLinks}>

@@ -6,9 +6,18 @@ import {Nav} from "../../components/Nav";
 import Footer from "../../components/Footer"
 import ArtworkList from "../../components/ArtworkList"
 import { main, image, flexContainer, title, background } from '../../components/mycomponents.module.css'
+import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 
 
-const Artworks = ({data: {allWpArtwork: {edges}}}) => {
+const Artworks = ({
+  data: {
+    allWpArtwork: {edges},
+    wpPage: {artworksFields},
+  },
+}) => {
+  console.log(artworksFields);
+  console.log(`testing is best`)
+  
     return (
         <main className={main}>
         <Layout title={background}>
@@ -25,20 +34,41 @@ const Artworks = ({data: {allWpArtwork: {edges}}}) => {
     )
 }
 
-export const query = graphql`query {
-    allWpArtwork {
-      edges {
-        node {
-          artworkMeta {
-            title
-            year
-            style
+export const query = graphql`
+  query {
+    wpPage(slug: {eq: "artworks"}) 
+    {
+      artworksFields {
+        title
+        picture {
+          localFile {
+            childImageSharp {
+              gatsbyImageData(quality: 100, placeholder:BLURRED, layout:FULL_WIDTH)
+            }
           }
-          id
-          slug
         }
       }
     }
-  }`
+    allWpArtwork {
+      edges {
+        node {
+			  	artworkMeta {
+            title
+            year
+            image {
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(placeholder:BLURRED, transformOptions: {grayscale:true})
+                }
+              }
+            }
+          }
+        slug
+        id
+      }
+    }
+  }
+}`
+
 
 export default Artworks;

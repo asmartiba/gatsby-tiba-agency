@@ -8,6 +8,9 @@ const Contact = () => {
         <main className={main}>
             <Layout title={background}>
             <h2 className={title}>Contact</h2>
+            <div>
+                <h2>Contact me</h2>
+            </div>
             </Layout>
             <Footer copy="Asmar Tiba" year={2023}/>
         </main>

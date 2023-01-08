@@ -1,27 +1,84 @@
 import * as React from "react"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
 import {Nav} from "../components/Nav";
 import Layout from "../components/Layout"
 import Footer from "../components/Footer"
+import Artwork from "../components/Artwork"
 import Seo from "../components/seo"
 import * as styles from "../components/index.module.css"
-import { main, subtitle, title, background } from '../components/mycomponents.module.css'
-import { StaticImage } from 'gatsby-plugin-image'
+import { main, subtitle, title, background,artwork } from '../components/mycomponents.module.css'
+import { StaticImage, GatsbyImage, getImage } from 'gatsby-plugin-image'
 
 
-const IndexPage = () => {
+
+const IndexPage = ({
+  data: {
+    wpPage: {homeFields},
+  },
+}) => {
+  console.log(homeFields)
+
+  const image = getImage(homeFields.picture.localFile);
+
   return (
     <main className={main}>
       <Layout title={background}>
-      <title>Home Page</title>
+      <section>
       <h1 className={title}>Welcome to my world</h1>
-      {/* <StaticImage alt="example" src="../" width={100}/> */}
-      
-      <h3 className={subtitle}>Take a look around</h3>
+      <GatsbyImage image={image} className={artwork}/>
+      </section>
+
+      <section>
+        <h2>Featured Artworks</h2>
+        <article>
+          {homeFields.artworks.map(artwork => {
+            return <Artwork slug={`artworks/${artwork.slug}`} key={artwork.id} artwork={artwork}/>
+          })}
+        </article>
+        <h2 className={subtitle}>Featured Artworks</h2>
+      </section>
       </Layout>
       <Footer copy="Asmar Tiba" year={2023}/>
     </main>
   )
 }
+
+export const query = graphql`query homeQuery {
+  wpPage(slug: {eq:"home"}) {
+    homeFields {
+      artworks {
+        ...on WpArtwork {
+          id
+          slug
+          artworkMeta {
+            title
+            year
+            image {
+              altText
+              localFile {
+                childImageSharp {
+                  gatsbyImageData(placeholder:BLURRED, transformOptions:{grayscale:true})
+                }
+              }
+            }
+          }
+        }
+      }
+      calltoaction {
+        title
+        url
+      }
+      title
+      picture {
+        altText
+        localFile {
+          childImageSharp {
+            gatsbyImageData(placeholder:BLURRED)
+          }
+        }
+      }
+    }
+  }
+}`
 
 export default IndexPage
