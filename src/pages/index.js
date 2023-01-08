@@ -21,7 +21,7 @@ const IndexPage = ({
     return (
         <main className={main}>
         <Layout title={background}>
-        <h2 className={title}>Welcome in my world</h2>
+        <h2 className={title}>Welcome to my world</h2>
 
         <h3 className={subtitle}>Featured artworks:</h3>
         {edges.map((item, index) => {
